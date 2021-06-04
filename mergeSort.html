@@ -1,0 +1,177 @@
+<!--
+********************
+Name: Yeohan 
+Language: JavaScript
+Paradigm: Scripting
+********************
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<h1>Merge Sort in JavaScript</h1>
+<h2>By Yeohan </h2>
+<meta charset=utf-8 />
+<title>JS Merge Sort</title>
+<style>
+body {padding-top:20px} 
+</style> 
+</head>
+<body>
+<style> 
+.Result1 {
+  font-family: Courier;
+}
+</style> 
+<input type="number" id="text"></input>
+<input type="button" id="button" value="Enter maximum elem." onclick="max_element(); disableButton1(button); enableButton();"></input>
+<input type="number" id="text1"></input>
+<input type="button" id="button1" value="Input" onclick="add_element_to_array(); disableButton2(button1);"></input>
+<input type="button" id="button2" value="Merge" onclick="disableButton3(button2); start();"></input>
+<script>
+
+document.getElementById("button1").disabled = true; 
+document.getElementById("button2").disabled = true; 
+
+
+var x = 0;
+var count = 0;
+var max = 0;
+var array = []
+var container = 0 
+var counter = 0;
+
+function max_element() {
+    max = document.getElementById("text").value;
+}
+
+function add_element_to_array() {
+
+    array[x] = document.getElementById("text1").value;
+    x++;
+    document.getElementById("text1").value = "";
+    count++; 
+    displayCurrElem();
+}
+function displayCurrElem() {
+    var e = "<hr>";   
+    for (var y=0; y<array.length; y++) 
+        e += array[y] + "<br>";
+
+    document.getElementById("Result").innerHTML = e;
+}
+
+function alertt() {
+    alert("You reached max number of elements to input! Merge Sort button is now available");
+    document.getElementById("button2").disabled = false;
+}
+
+// BUTTONS 
+function disableButton1(btn) {
+	document.getElementById(btn.id).disabled = true;
+	alert("You entered " + max + " as maximum number of elements ");
+}
+
+function disableButton2(btn) {
+    if (count == max) {
+        document.getElementById(btn.id).disabled = true;
+        alertt()
+    }
+}
+
+function enableButton(btn) {
+    document.getElementById("button1").disabled = false;
+}
+
+function enableButton2(btn) {
+    document.getElementById("button2").disabled = false;
+}
+
+
+function disableButton3(btn) {
+    document.getElementById(btn.id).disabled = true;
+}
+
+function merge(arr, left, middle, right) {
+    var holder = document.getElementById("Result2");
+	var max1 = middle - left + 1;
+	var max2 = right - middle;
+    var arrLeft = []
+    var arrRight = []
+
+    for (var i = 0; i < max1; i++)
+        arrLeft[i] = arr[i +left];
+    
+		
+    for (var j = 0; j < max2; j++)
+        arrRight[j] = arr[j + 1 + middle];
+    
+    var k = left; i = 0; j = 0; 
+	while (i < max1 && j < max2) {
+		if (arrLeft[i] <= arrRight[j]) {
+			arr[k] = arrLeft[i];
+			i++;
+		}
+		else {
+			arr[k] = arrRight[j];
+			j++;
+		}
+		k++;
+	}
+
+	while (i < max1) {
+		arr[k] = arrLeft[i];
+		i++; k++;
+	}
+
+	while (j < max2) {
+		arr[k] = arrRight[j];
+		j++; k++;
+    }
+
+    for (i = 0; i < arr.length; i++) {
+        holder.innerHTML += arr[i]
+        if (!(i + 1 == arr.length))
+            holder.innerHTML += " "
+    }
+    holder.innerHTML += "<br>"
+}
+
+function mergeSort (arr, left, right) {
+    if (left < right) {
+        var middle = Math.floor((right + left) / 2);
+        mergeSort(arr, left, middle);
+        mergeSort(arr, middle + 1, right);
+        merge (arr, left, middle, right);
+    }
+}
+
+function start() {
+    
+    document.getElementById("Result1").innerHTML = "Sorting..."
+
+    var newArr = []
+    newArr = array
+
+    for (let i = 0; i < max; i++)
+        newArr[i] = parseInt(newArr[i])
+
+    mergeSort(newArr, 0, (newArr.length - 1))
+    document.getElementById("Result3").innerHTML = "<br>"
+    document.getElementById("Result4").innerHTML = "Sorted Array"
+    var doc = document.getElementById("Result5")
+
+    for (i = 0; i < newArr.length; i++) 
+        doc.innerHTML += newArr[i] + " ";
+}
+
+</script>
+
+<div id="Result"></div> 
+<div id="Result1"></div> 
+<div id="Result2"></div> 
+<div id="Result3"></div> 
+<div id="Result4"></div> 
+<div id="Result5"></div> 
+</body>
+</html>
