@@ -1,6 +1,6 @@
 # Merge Sort (HTML) 
 
-First Term Project | Sophomore Year | 
+First Term Project | Sophomore Year
 
 Author/s: Yeohan 
 
